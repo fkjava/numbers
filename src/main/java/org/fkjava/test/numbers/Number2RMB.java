@@ -62,12 +62,15 @@ public class Number2RMB {
                 String chineseNumber = chineseNumbers[x];
                 // 由于单位前缀，是把最小单位放到最右边的，利用单位的位置获取出来即可
                 String unit = unitPrefix[unitPrefixPosition];
-                result.insert(0, unitSuffix[unitSuffixPosition])
-                        .insert(0, unit)
-                        .insert(0, chineseNumber);
+                // 就像小学的时候数数字一样，从右边往左边数
+                // 这里就是不断在左边写数字
+                result.insert(0, unitSuffix[unitSuffixPosition])//单位后缀
+                        .insert(0, unit)//单位
+                        .insert(0, chineseNumber)//数字
+                ;
             }
         }
-        //System.out.println(result);
+        System.out.println(result);
 
         result.append("圆");
 
@@ -89,8 +92,8 @@ public class Number2RMB {
         String yuan = result.toString();
         // 替换4次：第一次和第二次是为了把连续的【零佰】之类的去掉，第三次则把多个【零】改为一个【零】。
         // 第四次，把【零圆】替换成【圆】
-        yuan = yuan.replaceAll("(零[萬亿兆京仟佰拾])+", "零");
-        yuan = yuan.replaceAll("(零[萬亿兆京仟佰拾])+", "零");
+        yuan = yuan.replaceAll("(零+[萬亿兆京仟佰拾])+", "零");
+        yuan = yuan.replaceAll("(零+[萬亿兆京仟佰拾])+", "零");
         yuan = yuan.replaceAll("零{2,}", "零");
         yuan = yuan.replaceAll("零圆", "圆");
         //System.out.println(yuan);
